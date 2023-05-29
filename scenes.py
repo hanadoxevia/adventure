@@ -80,7 +80,7 @@ What is your next step?\n""")
         elif userinput == "2":
             stoned_area(items)
         elif userinput == "3":
-            return
+            beach(items)
         elif userinput =="4":
             step_into_jungle(items)
         else:
@@ -161,7 +161,7 @@ What is your next step?\n""")
         elif userinput == "2":
             cliff_scene(items)
         elif userinput == "3":
-            return
+            beach(items)
         elif userinput == "4":
             print("You are sitting down in the sand and make yourself comfortable. Its so nice feeling the sun on your skin. It surely would be nice to spend the day on the beach.\n What is your next step?\n")
         else:
