@@ -1,104 +1,91 @@
-from scenes2 import *
+import session
 
-# Made beach take a parameter named items (Note since python is a dynamically typed language it will not check to make sure that the item parameter is a dict until runtime, so might want to add a type check debugging thing but eh, I doubt it'll be too necessary)
-# Also every other function in this file will also take items as a parameter, all other functions that require the items dict in here should take it as a parameter
-def beach(items):
-    # Put the beach function inside of a while True loop so any future scenes this function goes into can just return void back to this function
-    # Recomended that for any other functions that leads into a different scene you put that function also into a while True loop
-    while True:
-
-        if items["plastic_bottle"] == True:
-            print("Beach Startscene\n")
-            options = ["1", "2"]
-            userinput = ""
-            while userinput not in options:
-                print("1. Go left\n2. Go right")
-                userinput = input(">")
-                if userinput == "1":
-                    leftside(items)
-                elif userinput == "2":
-                    rightside(items)
-                else:
-                    print("This is not a valid option.")
-        
+def beach():
+    print("Beach Startscene\n")
+    if session.session["items"]["plastic_bottle"]:
+        print("1. Go left\n2. Go right")
+        userinput = input("> ")
+        if userinput == "1":
+            return 1
+        elif userinput == "2":
+            return 2
         else:
-            print("Beach Startscene\n")
-            options = ["1", "2", "3", "4"]
-            userinput = ""
-            while userinput not in options or 4:
-                print("1. Get up and look around\n2. Go left\n3. Go right\n4. Keep laying")
-                userinput = input(">")
-                if userinput == "1":
-                    print("""You are trying to get up. Your arm hurts pretty much when you are moving it. 
+            print("This is not a valid option.")
+            return 0
+    else:
+        print("1. Get up and look around\n2. Go left\n3. Go right\n4. Keep laying")
+        userinput = input("> ")
+        if userinput == "1":
+            print("""You are trying to get up. Your arm hurts pretty much when you are moving it. 
     After you managed to get on your feet. You get a better look of your surroundings. 
     As far your eyes can see there is only water. Behind you lies a path that seems to lead into a little jungle. 
     While you are look around on the beach, you see a platisc bottle in the sand.
     What is your next action?\n""")
                 
-                    print("1. Get the plastic bottle\n2. Go left\n3. Go right")
-                    userinput = input(">")
-                    if userinput == "1":
-                        items["plastic_bottle"] = True
-                        print("You received Plastic Bottle.\nWhat is your next action?\n")
-                        print("1. Go left\n2. Go right")
-                        userinput = input(">")
-                        if userinput == "1":
-                            leftside(items)
-                        elif userinput =="2":
-                            rightside(items)
-                        else:
-                            print("This is not a valid option.")
-
-                    elif userinput == "2":
-                        leftside(items)
-                    elif userinput == "3":
-                        rightside(items)
-                    else:
-                        print("This is not a valid option.")
-                elif userinput == "2":
-                    leftside(items)
-                elif userinput == "3":
-                    rightside(items)
-                elif userinput == "4":
-                    print("You feel the sun on your skin and the soft breeze from the wind. If your wound wouldnt hurt then this would be really comfortable and relaxing.\nWhat is your next action?\n")
-                else:\
+            print("1. Get the plastic bottle\n2. Go left\n3. Go right")
+            userinput = input("> ")
+            if userinput == "1":
+                session.session["items"]["plastic_bottle"] = True
+                print("You received Plastic Bottle.\nWhat is your next action?\n")
+                print("1. Go left\n2. Go right")
+                userinput = input("> ")
+                if userinput == "1":
+                    return 1
+                elif userinput =="2":
+                    return 2
+                else:
                     print("This is not a valid option.")
 
-
-def leftside(items):
-    print("\nBeach left side\n")
-    options = ["1", "2", "3", "4"]
-    userinput = ""
-    while userinput not in options or 1:
-        print("Your options are:\n1. Look around\n2. Go forward\n3. Go back\n4. Take the path towards the vegetation")
-        userinput = input(">")
-        if userinput == "1":
-            print("""You take a look around you and you see the beautiful beach and hear the sound of the ocean. The water is crystalclear and you feel like u wanna go swimming.
-But the pain in your arm reminds you of your injury. A bit more far away u see some rocks at the beach and in the north it looks like some kind of vegetation.
-What is your next step?\n""")
-
+            elif userinput == "2":
+                return 1
+            elif userinput == "3":
+                return 2
+            else:
+                print("This is not a valid option.")
         elif userinput == "2":
-            stoned_area(items)
+            return 1
         elif userinput == "3":
-            return
-        elif userinput =="4":
-            step_into_jungle(items)
+            return 2
+        elif userinput == "4":
+            print("You feel the sun on your skin and the soft breeze from the wind. If your wound wouldnt hurt then this would be really comfortable and relaxing.\nWhat is your next action?\n")
+            return 0
         else:
             print("This is not a valid option.")
+            return 0
 
 
-def stoned_area(items):
+def leftside():
+    print("\nBeach left side\n")
+    print("Your options are:\n1. Look around\n2. Go forward\n3. Go back\n4. Take the path towards the vegetation")
+    userinput = input("> ")
+    if userinput == "1":
+        print("""You take a look around you and you see the beautiful beach and hear the sound of the ocean. The water is crystalclear and you feel like u wanna go swimming.
+But pain in your arm reminds you of your injury. A bit more far away u see some rocks at the beach and in the north it looks like some kind of vegetation.
+Whatyour next step?\n""")
+        return 1
+    elif userinput == "2":
+        return 3
+    elif userinput == "3":
+        return 0
+    elif userinput =="4":
+        return 4
+    else:
+        print("This is not a valid option.")
+        return 1
 
-    if items["piece_of_wood"] == True:
+
+def stoned_area():
+
+    if session.session["items"]["piece_of_wood"]:
         print("\nRockybeach\n")
         options = ["1", "2"]
         userinput = ""
         print("Your options are:\n1. Go forward\n2. Go back")
         userinput = input(">")
         if userinput == "1":
-            walkin_path_one(items)
+            walkin_path_one()
         elif userinput == "2":
-            leftside(items)
+            leftside()
         else:
             print("This is not a valid option.")
 
@@ -114,9 +101,9 @@ def stoned_area(items):
 Around twenty meters from you, you see some huge rocks that are nearly as tall as you. If you wanna explore this area.
 You need to be careful not to break your legs or anything else.\n""")
             elif userinput == "2":
-                walkin_path_one(items)
+                walkin_path_one()
             elif userinput == "3":
-                leftside(items)
+                leftside()
             elif userinput == "4":
                 print("""You are taking off your shoes to get a better feeling with your feet. You are slowly walkin towards the rocks.
 You are carefully climbing on the rocks and trying to hold the balance with ur hands gripping some edge of the rocks. 
@@ -126,20 +113,20 @@ What is your next step?\n""")
                 print("1. Grab the piece of wood\n2. Go forward\n3. Go back")
                 userinput = input(">")
                 if userinput == "1":
-                    items["piece_of_wood"] = True
+                    session.session["items"]["piece_of_wood"] = True
                     print("You received Piece of wood.\nWhat is your next action?\n")
                     print("1. Go forward\n2. Go back")
                     userinput = input(">")
                     if userinput == "1":
-                        walkin_path_one(items)
+                        walkin_path_one()
                     elif userinput =="2":
-                        leftside(items)
+                        leftside()
                     else:
                         print("This is not a valid option.")
                 elif userinput =="2":
-                    walkin_path_one(items)
+                    walkin_path_one()
                 elif userinput =="3":
-                    leftside(items)
+                    leftside()
                 else:
                     print("This is not a valid option.")
             
@@ -147,7 +134,7 @@ What is your next step?\n""")
                 print("This is not a valid option.")
 
 
-def rightside(items):
+def rightside():
     print("\nBeach right side\n")
     options = ["1", "2", "3", "4"]
     userinput = ""
@@ -159,7 +146,7 @@ def rightside(items):
 But the pain in your arm reminds you of your injury. A bit more far away u see some rocks at the beach and in the north it looks like some kind of vegetation.
 What is your next step?\n""")
         elif userinput == "2":
-            cliff_scene(items)
+            cliff_scene()
         elif userinput == "3":
             return
         elif userinput == "4":
@@ -167,18 +154,18 @@ What is your next step?\n""")
         else:
             print("This is not a valid option.")
 
-def cliff_scene(items):
+def cliff_scene():
 
-    if items["glass_bottle"] == True:
+    if ["glass_bottle"] == True:
         print("\nThe Cliffs\n")
         options = ["1", "2"]
         userinput = ""
         print("Your options are:\n1. Go forward\n2. Go back\n")
         userinput = input(">")
         if userinput == "1":
-           walkin_path_two(items)
+           walkin_path_two()
         elif userinput == "2":
-           rightside(items)
+           rightside()
         else:
             print("This is not a valid option.")
 
@@ -197,7 +184,7 @@ You better pay attention to your steps, cause you don't wanna end up as decorati
 While you let your eyes wander over the cliff, you spot something shiny. As you look closer you moticed that there is something stuck between the rocks.
 Probably someone might accidentally dropped something there, which now reflects the sunlight during the daytime.\n""")
             elif userinput == "2":
-                walkin_path_two(items)
+                walkin_path_two()
             elif userinput == "3":
                 print("""You decided to climb down the cliff to investiga what the shiny thing is that u spotted. 
 First you look around for a path that alloaws you to climb down safely. Around five meters away from you, you see some small way
@@ -209,25 +196,25 @@ What do you wanna do?\n""")
                 print("Your options are:\n1. Take the bottle with you\n2. Leave it you already have one")
                 userinput = input(">")
                 if userinput == "1":
-                    items["glass_bottle"] = True
+                    session.session["items"]["glass_bottle"] = True
                     print("You receive a glass bottle! (<insert zelda sound of receiving an item>)\n What is your next move\n")
                     print("1. Go forward\n2. Go back")
                     userinput = input(">")
                     if userinput == "1":
-                        walkin_path_two(items)
+                        walkin_path_two()
                     elif userinput =="2":
-                        rightside(items)
+                        rightside()
                     else:
                         print("This is not a valid option.")
                 else:
                     print("You leave the glass bottle where it is\n")
 
             elif userinput == "4":
-                rightside(items)
+                rightside()
             else:
                 print("This is not a valid option.")
 
-def walkin_path_one(items):
+def walkin_path_one():
     print("\nWalk along the Beach\n")
     forward = 0
     backward = 1
@@ -251,12 +238,12 @@ What is your next step?\n""")
             print("This is not a valid option.")
 
         if backward == 0:
-            stoned_area(items)
+            stoned_area()
     
         if forward == 5:
-            cliff_scene(items)
+            cliff_scene()
 
-def walkin_path_two(items):
+def walkin_path_two():
     print("\nWalk along the Beach\n")
     forward = 0
     backward = 1
@@ -280,7 +267,7 @@ What is your next step?\n""")
             print("This is not a valid option.")
 
         if backward == 0:
-            cliff_scene(items)
+            cliff_scene()
             
         if forward == 5:
-            stoned_area(items)
+            stoned_area()
